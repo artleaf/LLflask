@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/utils.html" as utils %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Hello, 王乐乐!</h1>
+    </div>
+    <div class="page-header">
+    	<h4>请输入客户名：</h4>
+        {{wtf.quick_form(form)}}
+    </div>
+    <div class="page-header">
+        <h3>
+        {{utils.form_button(url_for('prodadd', id=entry_id),utils.icon('add') + ' 添加产品')}}
+        {{utils.form_button(url_for('customer', id=entry_id),utils.icon('add') + ' 添加客户')}}
+    </h3>
+    </div>
+
+</div>
+
+{% endblock %}
