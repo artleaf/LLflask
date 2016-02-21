@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from app import app
-from flask import render_template,session,redirect,url_for,flash
+from flask import render_template,session,redirect,url_for,flash,request,escape
 from flask.ext.bootstrap import Bootstrap
 bootstrap=Bootstrap(app)
 #import myForm
@@ -11,8 +11,9 @@ def index():
 	name=None
 	form=NameForm()
 	if form.validate_on_submit():
-		session[name]=form.name.data
-		return redirect(url_for('index'))
+		session['name']=form.name.data
+		#return request.form['form.name.data']
+		return redirect(url_for('search'))
 	return render_template('index.html',form=form,name=session.get('name'))
 #	return 'hello world, hello flask'
 
@@ -23,7 +24,6 @@ def prodadd():
 	unitprice=None
 	formp=ProdForm()
 	if formp.validate_on_submit():
-		flash('Thanks')
 		session[namep]=formp.namep.data
 		session[type]=formp.type.data
 		session[unitprice]=formp.unitprice.data
@@ -36,6 +36,7 @@ def customer():
 
 @app.route('/search')
 def search():
-	pass
+	name=escape(session.get('name'))
+	return render_template('search.html',name=name)
 
 
